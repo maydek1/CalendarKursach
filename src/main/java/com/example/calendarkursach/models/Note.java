@@ -1,12 +1,10 @@
 package com.example.calendarkursach.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.lang.Nullable;
 
 @Data
 @NoArgsConstructor
@@ -15,15 +13,15 @@ import lombok.NoArgsConstructor;
 @Table(name = "Notes")
 public class Note {
     @Id
+    @GeneratedValue(strategy=GenerationType.SEQUENCE)
     private Long id;
 
     private String message;
 
     private String place;
 
+    @Nullable
     private String data;
 
-    @ManyToOne
-    private User user;
 
 }
