@@ -3,10 +3,7 @@ package com.example.calendarkursach.services;
 import com.example.calendarkursach.models.Role;
 import com.example.calendarkursach.models.User;
 import com.example.calendarkursach.repositories.UserDBS;
-import jakarta.persistence.PersistenceContext;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -16,9 +13,10 @@ import org.springframework.stereotype.Service;
 import java.util.Collections;
 
 @Service
+@RequiredArgsConstructor
 public class UserService implements UserDetailsService {
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
-    private UserDBS userDbs;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final UserDBS userDbs;
     @Override
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
         User user = userDbs.findUserByLogin(login);
@@ -33,6 +31,7 @@ public class UserService implements UserDetailsService {
             return false;
         }
 
+        System.out.println(user);
         user.setRoles(Collections.singleton(new Role(1L, "ROLE_USER")));
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userDbs.save(user);

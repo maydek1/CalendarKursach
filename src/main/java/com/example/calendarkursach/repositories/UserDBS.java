@@ -8,5 +8,5 @@ import org.springframework.stereotype.Component;
 @Component
 public interface UserDBS extends JpaRepository<User, Long> {
     User findUserByLogin(String login);
-    User findUserById(Long id);
+
 }

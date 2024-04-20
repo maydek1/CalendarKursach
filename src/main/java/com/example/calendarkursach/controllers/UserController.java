@@ -1,6 +1,5 @@
 package com.example.calendarkursach.controllers;
 
-import com.example.calendarkursach.models.User;
 import com.example.calendarkursach.services.UserService;
 import lombok.Data;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +14,7 @@ public class UserController {
 
     @GetMapping("/user")
     public ResponseEntity getUser(@RequestParam String username){
-        return ResponseEntity.status(200).body(userService.loadUserByUsername(username));
+        return ResponseEntity.ok(userService.loadUserByUsername(username));
     }
 
 }

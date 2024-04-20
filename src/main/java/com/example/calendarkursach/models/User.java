@@ -17,13 +17,14 @@ import java.util.Set;
 @Table(name = "Users")
 public class User implements UserDetails {
     @Id
+    @GeneratedValue(strategy=GenerationType.SEQUENCE)
     private Long id;
 
     private String password;
     private String login;
 
     @Transient
-    private String confirmPassword;
+    private String email = "Почта не привязана";
 
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles;
@@ -35,31 +36,31 @@ public class User implements UserDetails {
 
     @Override
     public String getPassword() {
-        return getPassword();
+        return password;
     }
 
     @Override
     public String getUsername() {
-        return getLogin();
+        return login;
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return true;
     }
 }
